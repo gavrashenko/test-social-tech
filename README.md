@@ -1,34 +1,31 @@
-# test-social-tech
+# test-social-tech  
+  
+## Project setup  
+```sh  
+git clone https://github.com/yurii-kozak/test-repo.git
+cd test-repo
+npm i
+```  
+  
+## Using
 
-## Project setup
-```
-npm install
-```
+### Step 1. Run Server Side
+```  
+npm run serve-server
+```  
+### Step 2. Run Client Side
+```  
+npm run serve-client
+```  
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+  
+#### Lints and fixes files  
+```  
+npm run lint  
+```  
+  
+#### Run your unit tests  
+```  
+npm run test:unit  
+```  

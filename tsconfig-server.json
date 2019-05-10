@@ -2,16 +2,16 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "outDir": "./dist/server",
+    "outDir": "./dist",
     "strict": true,
     "sourceMap": true,
     "typeRoots": [
-      "node_modules/@types",
-      "node_modules/firebase"
+      "node_modules/@types"
     ]
   },
   "include": [
-    "server/**/*.ts"
+    "src/server/*.ts",
+    "src/server/**/*.ts"
   ],
   "exclude": [
     "dist",
