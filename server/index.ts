@@ -13,7 +13,7 @@ const wss = new WebSocket.Server({ server });
 app.use((req: any, res: any, next: any) => {
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Content-Type', 'application/json');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Origin', 'http://localhost:4600');
   next();
@@ -57,7 +57,7 @@ async function runBotMessage(ws: any, chatId: any) {
   },         Number(parseFloat(`${Math.random() * 5000}`).toFixed(2)));
 }
 
-const PORT = process.env.PORT || 8999;
+const PORT = process.env.PORT || 4700;
 
 server.listen(PORT, () => {
   console.log(`Server started on port  ${PORT}:)`);
