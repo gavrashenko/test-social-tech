@@ -1,6 +1,6 @@
 import 'firebase/firestore';
 import * as admin from 'firebase-admin';
-import { IMessageItem } from '@/interfaces/IMessageItem';
+import { IMessageItem } from '../src/interfaces/IMessageItem';
 const serviceAccount = require('./serviceAccountKey.json');
 
 admin.initializeApp({

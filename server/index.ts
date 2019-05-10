@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as http from 'http';
 import * as WebSocket from 'ws';
 import fireStoreManager from './fireStoreManager';
-import { IMessageItem } from '../interfaces/IMessageItem';
+import { IMessageItem } from '../src/interfaces/IMessageItem';
 
 let phrases: any = {};
 
