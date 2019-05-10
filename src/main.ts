@@ -1,12 +1,34 @@
-import Vue from 'vue';
-import App from './App.vue';
+import vue from 'vue';
+import AppVue from './App.vue';
 import router from './router';
 import store from './store';
+import { IMessageItem } from '@/interfaces/IMessageItem';
+import WebSocketManager from '@/WebSocketManager';
 
-Vue.config.productionTip = false;
+vue.config.productionTip = false;
 
-new Vue({
+new vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(AppVue),
 }).$mount('#app');
+
+export const webSocketManager = new WebSocketManager('ws://localhost:8999');
+
+webSocketManager.on('message', (data: IMessageItem) => {
+  store.commit('addMessage', data);
+});
+
+webSocketManager.on('disconnect', () => {
+  store.commit('network', false);
+});
+
+webSocketManager.on('open', () => {
+  const messagesBuffer = store.state.messagesBuffer;
+  if (store.state.messagesBuffer.length) {
+    messagesBuffer.forEach((msg) => {
+      webSocketManager.sendMessage(msg);
+    });
+    store.state.messagesBuffer = [];
+  }
+});
