@@ -1,7 +1,7 @@
 import { Server } from 'mock-socket';
 import WebSocketManager from '@/WebSocketManager';
 
-describe('that chat app can be mocked', () => {
+describe('WebSocketManager', () => {
 
   it('WebSocket reconnect', async() => {
     let isConnected = false;
