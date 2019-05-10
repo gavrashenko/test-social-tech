@@ -2,8 +2,8 @@
   
 ## Project setup  
 ```sh  
-git clone https://github.com/yurii-kozak/test-repo.git
-cd test-repo
+git clone https://github.com/yurii-kozak/test-social-tech.git
+cd test-social-tech
 npm i
 ```  
   
