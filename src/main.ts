@@ -13,10 +13,10 @@ new vue({
   render: h => h(AppVue),
 }).$mount('#app');
 
-export const webSocketManager = new WebSocketManager('ws://localhost:8999');
+export const webSocketManager = new WebSocketManager('ws://localhost:4700');
 
 webSocketManager.on('message', (data: IMessageItem) => {
-  store.commit('addMessage', data);
+  store.commit('addMessageToChat', data);
 });
 
 webSocketManager.on('disconnect', () => {

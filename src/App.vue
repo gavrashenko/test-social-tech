@@ -6,15 +6,21 @@
           <div class="chat-wrap">
             <div class="contacts-wrap">
               <div class="contact">
-                <router-link v-for="chat in chatsList" :to="`/chat/${chat.id}`" class="contact-user" active-class="active">
+                <router-link v-for="chat in chatsList"
+                             :to="`/chat/${chat.id}`"
+                             class="contact-user"
+                             active-class="active"
+                >
                     <div class="contact-user-foto online">
-                      <a href=""><img :src="chat.data.chat_img_url" alt=""></a>
+                      <a href="">
+                        <img :src="chat.data.logoUrl" :alt="`chat '${chat.id}`">
+                      </a>
                     </div>
                     <div class="contact-user-info">
                       <div class="contact-user-top">
-                        <a href="" class="contact-user-name">
-                          {{chat.data.chat_name}}
-                        </a>
+                        <div class="contact-user-name">
+                          {{chat.data.name}}
+                        </div>
                       </div>
                     </div>
                 </router-link>
@@ -53,7 +59,7 @@ export default vue.extend({
 @import './assets/styles/style.css';
 
 .chat-wrap {
-  background: #FFFFFF;
+  background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
   display: flex;
   flex-direction: row;
@@ -81,16 +87,16 @@ export default vue.extend({
   align-items: center;
   cursor: pointer;
   transition: .2s all linear;
-}
 
-.contact-user:hover {
-  background-color: #F5F5F5;
-  transition: .2s all linear;
-  text-decoration: none;
-}
+  &:hover {
+    background-color: #F5F5F5;
+    transition: .2s all linear;
+    text-decoration: none;
+  }
 
-.contact-user.active {
-  background-color: #F5F5F5;
+  &.active {
+    background-color: #F5F5F5;
+  }
 }
 
 .contact-user-foto {
@@ -99,34 +105,34 @@ export default vue.extend({
   min-width: 40px;
   margin-right: 8px;
   position: relative;
-}
 
-.contact-user-foto.online:after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 6px;
-  height: 6px;
-  background-color: #04C01B;
-  border-radius: 50px;
-}
+  &.online:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 6px;
+    height: 6px;
+    background-color: #04C01B;
+    border-radius: 50px;
+  }
 
-.contact-user-foto a {
-  display: block;
-  border: 2px solid #F0FAFF;
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  background: #DDE5EB;
-  overflow: hidden;
-}
+  a {
+    display: block;
+    border: 2px solid #F0FAFF;
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    background: #DDE5EB;
+    overflow: hidden;
 
-.contact-user-foto a img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
 
 .contact-user-info {
@@ -147,11 +153,11 @@ export default vue.extend({
   line-height: normal;
   font-size: 12px;
   color: #000000;
-}
 
-.contact-user-name:hover {
-  text-decoration: none;
-  color: #000000;
+  &:hover {
+    text-decoration: none;
+    color: #000000;
+  }
 }
 
 .contact-user-text {
@@ -159,7 +165,6 @@ export default vue.extend({
   line-height: 21px;
   font-size: 12px;
   color: #8C8C8C;
-
   max-width: 150px;
   white-space: nowrap;
   overflow: hidden;

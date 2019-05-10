@@ -1,7 +1,7 @@
 <template>
   <div class="page-404">
     <div class="page-404__title">error 404</div>
-    <div class="page-404__dess">please choose contact to start messaging</div>
+    <div class="page-404__desc">please choose contact to start messaging</div>
   </div>
 </template>
 

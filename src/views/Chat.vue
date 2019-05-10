@@ -2,19 +2,32 @@
   <div class="blocked-wrap">
     <div style="position: relative">
       <div class="chat">
-        <ChatItemVue class="chat-message" v-for="message in messagesByChatId($route.params.id).slice().reverse()"
-                  :key="message.id"
-                  v-bind:class="{'user-message': message.data.self}" :propsData="message"/>
+        <MessageItem
+                v-for="message in messagesByChatId($route.params.id).slice().reverse()"
+                :key="message.id"
+                v-bind:class="{'user-message': message.data.self}"
+                :message="message"
+        >
+        </MessageItem>
+        <div class="no-messages"
+             v-if="messagesByChatId($route.params.id).length === 0"
+        >
+          start chat with {{chatNameByChatId($route.params.id)}}
+        </div>
       </div>
     </div>
     <div class="chat-form">
       <form action="">
         <div class="textarea-wrap">
-          <textarea placeholder="Text" ref="msg" @keyup.enter.exact="onSendMessage" v-model="message"></textarea>
+          <textarea placeholder="Text"
+                    v-model="message"
+                    @keyup.enter.exact="onSendMessage"
+          >
+          </textarea>
         </div>
         <div class="textarea-count-wrap">
           <div class="checkbox-wrap">
-            <label>Press Enter to send, Shift+Enter to new line</label>
+            <label>Press Enter to send, Shift+Enter for new line</label>
           </div>
         </div>
       </form>
@@ -27,18 +40,19 @@ import vue from 'vue';
 import store from '@/store';
 import { mapActions, mapGetters } from 'vuex';
 import router from '../router';
-import ChatItemVue from '@/components/ChatItem.vue';
+import MessageItemVue from '@/components/MessageItem.vue';
 
 export default vue.extend({
   store,
   router,
   components: {
-    ChatItemVue,
+    MessageItem : MessageItemVue,
   },
   computed: {
     ...mapGetters([
       'messagesByChatId',
       'logoByChatId',
+      'chatNameByChatId',
     ]),
   },
   data() {
@@ -50,7 +64,7 @@ export default vue.extend({
     ...mapActions([
       'sendMessage',
     ]),
-    onSendMessage() {
+    onSendMessage(): void {
       const parsedMsg = this.trimText(this.message);
       if (parsedMsg === '') {
         this.message = parsedMsg;
@@ -93,7 +107,7 @@ export default vue.extend({
     width: 100%;
     max-width: 100%;
     height: 450px;
-    padding: 36px 24px 24px 24px;
+    padding: 36px 24px 24px;
     position: relative;
     display: flex;
     flex-direction: column-reverse;
@@ -110,20 +124,32 @@ export default vue.extend({
     }
   }
 
+  .no-messages {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+  }
+
   .chat-form {
-    padding: 22px 16px 16px 16px;
-  }
+    padding: 22px 16px 16px;
 
-  .chat-form .textarea-wrap textarea {
-    height: 163px;
-  }
+    .textarea-wrap {
+      margin-bottom: 16px;
 
-  .chat-form .textarea-wrap {
-    margin-bottom: 16px;
-  }
+      textarea {
+        height: 163px;
+      }
+    }
 
-  .chat-form .checkbox-wrap label {
-    font-weight: 400;
+    .checkbox-wrap {
+
+      label {
+        font-weight: 400;
+      }
+    }
   }
 
   .textarea-count-wrap {
@@ -140,10 +166,10 @@ export default vue.extend({
     align-items: center;
     padding: 24px 16px 16px 16px;
     background: #FAFAFA;
-  }
 
-  .chat-form-btn .main-btn:last-child {
-    margin-right: 0;
+    .main-btn:last-child {
+      margin-right: 0;
+    }
   }
 
 </style>

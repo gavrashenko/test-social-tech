@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="chat-message">
     <div class="chat-message-foto">
-      <a href=""><img :src="logoByChatId({id: $route.params.id, self: propsData.data.self})" alt=""></a>
+        <img :src="logoByChatId({id: $route.params.id, self: message.data.self})" :alt="message.id">
     </div>
-    <div class="chat-message-text" v-html="propsData.data.text"></div>
-    <div class="chat-message-time">{{time}}</div>
+    <div class="chat-message-text"
+         v-html="message.data.text">
+    </div>
+    <div class="chat-message-time">
+        {{messageTime}}
+    </div>
   </div>
 </template>
 
@@ -20,7 +24,7 @@ export default vue.extend({
   store,
   router,
   props: {
-    propsData: {
+    message: {
       type: Object as () => IMessageItem,
     },
   },
@@ -32,13 +36,13 @@ export default vue.extend({
   },
   data() {
     return {
-      time: '',
+      messageTime: '',
     };
   },
   created(): void {
-    this.time = moment(this.propsData.data.createdAt).fromNow();
+    this.messageTime = moment(this.message.data.createdAt).fromNow();
     setInterval(() => {
-      this.time = moment(this.propsData.data.createdAt).fromNow();
+      this.messageTime = moment(this.message.data.createdAt).fromNow();
     },          30000);
   },
 });
@@ -116,9 +120,9 @@ export default vue.extend({
     .chat-message-text {
       background: #2B3038;
       color: #FFFFFF;
-      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16), 0px 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16), 0 4px 6px rgba(0, 0, 0, 0.1);
       border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 0px;
+      border-bottom-right-radius: 0;
       font-weight: 300;
     }
 
