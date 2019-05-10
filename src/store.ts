@@ -4,7 +4,7 @@ import axios from 'axios';
 import { IChatItem } from '@/interfaces/IChatItem';
 import { IState } from '@/interfaces/IState';
 import { IMessageItem } from '@/interfaces/IMessageItem';
-import { webSocketManager } from '@/main';
+import { webSocketManager } from '@/web-socket';
 
 vue.use(vuex);
 
