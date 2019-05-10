@@ -1,10 +1,10 @@
 import * as express from 'express';
 import * as http from 'http';
 import * as WebSocket from 'ws';
-// import fireStoreManager from './fireStoreManager';
-import { IMessageItem } from '../src/interfaces/IMessageItem';
+import fireStoreManager from './fireStoreManager';
+import { IMessageItem } from '../interfaces/IMessageItem';
 
-const phrases: any = {};
+let phrases: any = {};
 
 const app = express();
 const server = http.createServer(app);
@@ -20,23 +20,23 @@ app.use((req: any, res: any, next: any) => {
 });
 
 app.get('/get-messages', async (req: any, res: any) => {
-  // const messages = await fireStoreManager.getMessages();
-  // phrases = await fireStoreManager.getPhrases();
-  // res.send(messages);
+  const messages = await fireStoreManager.getMessages();
+  phrases = await fireStoreManager.getPhrases();
+  res.send(messages);
 });
 
 wss.on('connection', async (ws: WebSocket) => {
   ws.on('message', async (param: string) => {
-    // const msg: IMessageItem = JSON.parse(param);
-    // fireStoreManager.saveMessage(msg);
-    // await runBotMessage(ws, msg.chatId);
+    const msg: IMessageItem = JSON.parse(param);
+    fireStoreManager.saveMessage(msg);
+    await runBotMessage(ws, msg.chatId);
   });
 });
 
 async function runBotMessage(ws: any, chatId: any) {
   let phrasesArray = phrases[chatId];
   if (!phrasesArray) {
-    // phrases = await fireStoreManager.getPhrases();
+    phrases = await fireStoreManager.getPhrases();
     phrasesArray = phrases[chatId];
   }
   const text = phrasesArray[Math.floor(Math.random() * phrasesArray.length)].text;
@@ -50,7 +50,7 @@ async function runBotMessage(ws: any, chatId: any) {
       self: false,
     },
   };
-  // fireStoreManager.saveMessage(generatedMessage);
+  fireStoreManager.saveMessage(generatedMessage);
 
   setTimeout(() => {
     ws.send(JSON.stringify(generatedMessage));
