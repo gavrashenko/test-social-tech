@@ -1,7 +1,6 @@
 import 'firebase/firestore';
 import * as admin from 'firebase-admin';
 import { IMessageItem } from '../interfaces/IMessageItem';
-// tslint:disable-next-line
 const serviceAccount = require('./serviceAccountKey.json');
 
 admin.initializeApp({
