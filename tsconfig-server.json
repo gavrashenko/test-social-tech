@@ -10,8 +10,8 @@
     ]
   },
   "include": [
-    "server/*.ts",
-    "server/**/*.ts"
+    "src/server/*.ts",
+    "src/server/**/*.ts"
   ],
   "exclude": [
     "dist",

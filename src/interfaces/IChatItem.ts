@@ -1,6 +1,6 @@
-import { IMessageItem } from '@/interfaces/IMessageItem';
+import IMessageItem from '@/interfaces/IMessageItem';
 
-export interface IChatItem {
+interface IChatItem {
   data: {
     logoUrl: string;
     name: string;
@@ -8,3 +8,5 @@ export interface IChatItem {
   id: string;
   messages: IMessageItem[];
 }
+
+export default IChatItem;

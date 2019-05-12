@@ -1,9 +1,11 @@
-import { IChatItem } from '@/interfaces/IChatItem';
-import { IMessageItem } from '@/interfaces/IMessageItem';
+import IChatItem from '@/interfaces/IChatItem';
+import IMessageItem from '@/interfaces/IMessageItem';
 
-export interface IState {
+interface IState {
   chatsList: IChatItem[];
   messagesBuffer: IMessageItem[];
   selfLogoUrl: string;
   network: boolean;
 }
+
+export default IState;

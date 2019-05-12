@@ -1,14 +1,16 @@
 import vue from 'vue';
 import vuex from 'vuex';
 import axios from 'axios';
-import { IChatItem } from '@/interfaces/IChatItem';
-import { IState } from '@/interfaces/IState';
-import { IMessageItem } from '@/interfaces/IMessageItem';
-import { webSocketManager } from '@/web-socket';
+import IChatItem from '@/interfaces/IChatItem';
+import IState from '@/interfaces/IState';
+import IMessageItem from '@/interfaces/IMessageItem';
+import WebSocketManager from '@/WebSocketManager';
+
+const webSocketManager = new WebSocketManager('ws://localhost:4700');
 
 vue.use(vuex);
 
-export default new vuex.Store({
+const store = new vuex.Store({
   state: {
     chatsList: [],
     messagesBuffer: [],
@@ -16,16 +18,17 @@ export default new vuex.Store({
     selfLogoUrl: 'http://www.dejurka.ru/wp-content/uploads/2014/08/41.jpg',
   },
   getters: {
-    chatsList: (state: IState) => {
-      return state.chatsList;
-    },
+    chatsList: (state: IState) => state.chatsList,
     messagesByChatId: (state: IState) => (id: string) => {
       const chat = state.chatsList.find((x: IChatItem) => x.id === id);
       return chat ? chat.messages : [];
     },
     logoByChatId: (state: IState) => (params: {id: string, self: boolean}) => {
       const chat = state.chatsList.find((x: IChatItem) => x.id === params.id);
-      return chat ? !params.self ? chat.data.logoUrl : state.selfLogoUrl : state.selfLogoUrl;
+      if (chat) {
+        return params.self ? state.selfLogoUrl : chat.data.logoUrl;
+      }
+      return state.selfLogoUrl;
     },
     chatNameByChatId: (state: IState) => (id: string) => {
       const chat = state.chatsList.find((x: IChatItem) => x.id === id);
@@ -71,3 +74,23 @@ export default new vuex.Store({
     },
   },
 });
+
+webSocketManager.on('message', (data: IMessageItem) => {
+  store.commit('addMessageToChat', data);
+});
+
+webSocketManager.on('disconnect', () => {
+  store.commit('network', false);
+});
+
+webSocketManager.on('open', () => {
+  const { messagesBuffer } = store.state;
+  if (store.state.messagesBuffer.length) {
+    messagesBuffer.forEach((msg) => {
+      webSocketManager.sendMessage(msg);
+    });
+    store.state.messagesBuffer = [];
+  }
+});
+
+export default store;

@@ -1,4 +1,4 @@
-export interface IMessageItem {
+interface IMessageItem {
   id: string;
   data: {
     createdAt: number;
@@ -7,3 +7,5 @@ export interface IMessageItem {
   };
   chatId?: string;
 }
+
+export default IMessageItem;

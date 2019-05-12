@@ -13,14 +13,14 @@
 </template>
 
 <script lang="ts">
-import vue from 'vue';
+import Vue from 'vue';
 import store from '@/store';
 import { mapGetters } from 'vuex';
-import router from '../router';
 import moment from 'moment';
-import { IMessageItem } from '../interfaces/IMessageItem';
+import router from '../router';
+import IMessageItem from '../interfaces/IMessageItem';
 
-export default vue.extend({
+export default Vue.extend({
   store,
   router,
   props: {
@@ -43,7 +43,7 @@ export default vue.extend({
     this.messageTime = moment(this.message.data.createdAt).fromNow();
     setInterval(() => {
       this.messageTime = moment(this.message.data.createdAt).fromNow();
-    },          30000);
+    }, 30000);
   },
 });
 </script>

@@ -1,12 +1,16 @@
-/// <reference path="../node_modules/@types/ws/index.d.ts" />
-import { IMessageItem } from '@/interfaces/IMessageItem';
+import IMessageItem from '@/interfaces/IMessageItem';
 
 export default class WebSocketManager {
   private openCb: Function = () => {};
+
   private messageCb: Function = () => {};
+
   private errorCb: Function = () => {};
+
   private closeCb: Function = () => {};
+
   private disconnectCb: Function = () => {};
+
   private socket: WebSocket;
 
   constructor(private url: string) {
@@ -54,6 +58,8 @@ export default class WebSocketManager {
         break;
       case 'disconnect':
         this.disconnectCb = callback;
+        break;
+      default:
         break;
     }
   }

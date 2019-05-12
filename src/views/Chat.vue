@@ -40,13 +40,13 @@ import vue from 'vue';
 import store from '@/store';
 import { mapActions, mapGetters } from 'vuex';
 import router from '../router';
-import MessageItemVue from '@/components/MessageItem.vue';
+import MessageItem from '@/components/MessageItem.vue';
 
 export default vue.extend({
   store,
   router,
   components: {
-    MessageItem : MessageItemVue,
+    MessageItem,
   },
   computed: {
     ...mapGetters([
@@ -82,8 +82,7 @@ export default vue.extend({
       this.message = '';
     },
     trimText(text: string): string {
-      return text.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '')
-      .replace(/(<([^>]+)>)/ig, '').replace(/\n/g, '<br />');
+      return text.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '').replace(/(<([^>]+)>)/ig, '').replace(/\n/g, '<br />');
     },
   },
 });

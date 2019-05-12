@@ -8,6 +8,7 @@
               <div class="contact">
                 <router-link v-for="chat in chatsList"
                              :to="`/chat/${chat.id}`"
+                             :key="chat.id"
                              class="contact-user"
                              active-class="active"
                 >
